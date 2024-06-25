@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Escala de Motoristas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Cor de fundo para o corpo da página */
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff; /* Cor de fundo para o formulário */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        fieldset {
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        legend {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        #servicos {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #666;
+        }
+
+        select, input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        button[type="submit"] {
+            background-color: #008CBA;
+        }
+
+        button[type="button"] {
+            background-color: #f44336;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <h1>Formulário de Escala de Motoristas</h1>
+    <form action="/cgi-bin/escalonar_motoristas.py" method="post" id="formulario">
+        <fieldset>
+            <legend>Serviços Desejados</legend>
+
+            <div id="servicos">
+                <!-- Área para adicionar serviços dinamicamente -->
+            </div>
+
+            <button type="button" onclick="adicionarServico()">Adicionar Serviço</button>
+            <br><br>
+
+            <button type="submit">Enviar</button>
+        </fieldset>
+    </form>
+
+    <script>
+        let numServicos = 0;
+
+        function adicionarServico() {
+            numServicos++;
+            const divServico = document.createElement('div');
+            divServico.id = `servico${numServicos}`;
+
+            divServico.innerHTML = `
+                <label for="servico${numServicos}">Serviço ${numServicos}</label>
+                <select id="servico${numServicos}" name="servico${numServicos}">
+                    <option value="MEDLOG IMPORTAÇÃO">MEDLOG IMPORTAÇÃO</option>
+                    <option value="MEDLOG EXPORTAÇÃO">MEDLOG EXPORTAÇÃO</option>
+                    <option value="BWP">BWP</option>
+                    <option value="BRASILMAD PORTONAVE">BRASILMAD PORTONAVE</option>
+                    <option value="BRASILMAD CONEXAO">BRASILMAD CONEXAO</option>
+                    <option value="BRASILMAD VAZIO">BRASILMAD VAZIO</option>
+                    <option value="ITAZEM X PORTONAVE">ITAZEM X PORTONAVE</option>
+                    <option value="PORTONAVE X ITAZEM">PORTONAVE X ITAZEM</option>
+                    <option value="TEPORTI X PORTONAVE">TEPORTI X PORTONAVE</option>
+                    <option value="PORTONAVE X TEPORTI">PORTONAVE X TEPORTI</option>
+                </select>
+                <label for="horario${numServicos}">Horário:</label>
+                <select id="horario${numServicos}" name="horario${numServicos}">
+                    <option value="07X09">07X09</option>
+                    <option value="09X11">09X11</option>
+                    <option value="11X13">11X13</option>
+                    <option value="13X15">13X15</option>
+                    <option value="15X17">15X17</option>
+                    <option value="17X19">17X19</option>
+                    <option value="19X21">19X21</option>
+                    <option value="21X23">21X23</option>
+                    <option value="23X01">23X01</option>
+                    <option value="06X08">06X08</option>
+                    <option value="08X10">08X10</option>
+                    <option value="10X12">10X12</option>
+                    <option value="12X14">12X14</option>
+                    <option value="14X16">14X16</option>
+                    <option value="16X18">16X18</option>
+                    <option value="18X20">18X20</option>
+                    <option value="20X22">20X22</option>
+                    <option value="22X24">22X24</option>
+                </select>
+                <label for="num_motoristas${numServicos}">Número de Motoristas:</label>
+                <input type="number" id="num_motoristas${numServicos}" name="num_motoristas${numServicos}" min="1" value="1">
+                <br><br>
+            `;
+
+            document.getElementById('servicos').appendChild(divServico);
+        }
+    </script>
+</body>
+</html>
